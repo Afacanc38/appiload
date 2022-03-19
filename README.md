@@ -7,3 +7,4 @@ Appiload
 
 ## Yakında!
 Bu uygulama şu anda geliştirilme aşamasındadır ve hazır değildir.
+![Ekran görüntüsü 2022-03-19 21-02-16](https://user-images.githubusercontent.com/66299502/159133030-a341530a-41ae-4abf-962c-40b61f4a2889.png)
