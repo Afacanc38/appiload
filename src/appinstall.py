@@ -13,6 +13,7 @@ class functions():
     def clicked(widget, function):
         widget.connect("clicked", function)
 
+
 class InstallerWindow (Adw.Window):
     def __init__ (self, *args, **kwargs):
         super ().__init__ (*args, **kwargs)
@@ -115,8 +116,10 @@ class InstallerWindow (Adw.Window):
         self.box_1.append (self.box_1_progress)
 
         self.lbl_installing = Gtk.Label (
-            label = "Kuruluyor",
             halign = Gtk.Align.START
+        )
+        self.lbl_installing.set_markup (
+            "<b>Kuruluyor</b>"
         )
         self.box_1_progress.append (self.lbl_installing)
 
@@ -137,7 +140,6 @@ class InstallerWindow (Adw.Window):
         )
         functions.clicked(self.btn_1_cancel, self.on_cancel_clicked)
         self.box_1_btn.append (self.btn_1_cancel)
-
 
     def on_cancel_clicked(self, widget):
         self.close()
