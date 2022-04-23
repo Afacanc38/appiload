@@ -21,6 +21,8 @@ class InstallerWindow (Adw.Window):
         GLib.set_application_name ("Uygulama Kur")
         GLib.set_prgname ("Appiload")
         self.set_default_size (1, 1)
+        
+        self.set_modal(True)
 
         # Başlık çubuğu olmayan bir pencereyi sürüklenebilir yapar
         self.win_hdl = Gtk.WindowHandle (
