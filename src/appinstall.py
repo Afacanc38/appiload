@@ -204,6 +204,12 @@ class InstallerWindow (Adw.Window):
             bin_dir = f"{home_dir}/.local/bin"
             file_name = os.path.basename(f"{file}")
             file_path = pathlib.Path(file).parent.resolve()
+            check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
+            if check_appiload_path == False:
+                os.makedirs("/tmp/appiload/appinstall")
+                os.chdir("/tmp/appiload/appinstall")
+            else:
+                self.stk_main.set_visible_child(self.box_2)
             self.lbl_installing.set_markup (
                 "<b>Kuruluyor:</b> Uygulama dizini kontrol ediliyor..."
             )
@@ -230,12 +236,6 @@ class InstallerWindow (Adw.Window):
                 "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
             )
             mv_appimg = subprocess.run(["mv", f"{file}", f"{bin_dir}"], capture_output=True).stdout.decode("utf-8")
-            check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
-            if check_appiload_path == False:
-                os.makedirs("/tmp/appiload/appinstall")
-                os.chdir("/tmp/appiload/appinstall")
-            else:
-                self.stk_main.set_visible_child(self.box_2)
             
             ext_appimg = subprocess.run([f"{bin_dir}/{file_name}", "--appimage-extract"], capture_output=True).stdout.decode("utf-8")
             print(ext_appimg)
