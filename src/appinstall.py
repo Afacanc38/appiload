@@ -69,7 +69,9 @@ class InstallerWindow (Adw.Window):
         self.box_0_btn = Gtk.Box(
             spacing = 6,
             orientation = Gtk.Orientation.HORIZONTAL,
-            halign = Gtk.Align.END
+            halign = Gtk.Align.END,
+            valign = Gtk.Align.CENTER,
+            hexpand = True
         )
         self.box_0.append(self.box_0_btn)
 
@@ -131,7 +133,10 @@ class InstallerWindow (Adw.Window):
 
         # Düğme kutusu
         self.box_1_btn = Gtk.Box (
-            spacing = 6
+            spacing = 6,
+            halign = Gtk.Align.END,
+            valign = Gtk.Align.CENTER,
+            hexpand = True
         )
         self.box_1.append (self.box_1_btn)
 
@@ -141,10 +146,58 @@ class InstallerWindow (Adw.Window):
         functions.clicked(self.btn_1_cancel, self.on_cancel_clicked)
         self.box_1_btn.append (self.btn_1_cancel)
 
+        # Hata kısmı
+        self.box_2 = Gtk.Box(
+            spacing = 10,
+            halign = Gtk.Align.FILL,
+            orientation = Gtk.Orientation.HORIZONTAL
+        )
+        self.stk_main.add_titled (
+            self.box_2,
+            "page2",
+            "Hata"
+        )
+        
+        # Simge
+        self.img_error = Gtk.Image.new_from_icon_name ("dialog-error-symbolic")
+        self.img_error.set_icon_size (Gtk.IconSize.LARGE)
+        self.box_2.append (
+            self.img_error
+        )
+
+        # Hata
+        self.lbl_error = Gtk.Label (
+            halign = Gtk.Align.START,
+            xalign = 0,
+            width_chars = 50
+        )
+        self.lbl_error.set_markup (
+            "<b>Hata:</b> Appiload arkada çalışıyor. Bunun yanlış olduğunu düşünüyorsanız <tt>/tmp/appiload</tt> klasörünü silebilirsiniz."
+        )
+        self.lbl_error.set_wrap(True)
+        self.box_2.append (self.lbl_error)
+
+        # Düğme kutusu
+        self.box_2_btn = Gtk.Box(
+            spacing = 6,
+            orientation = Gtk.Orientation.HORIZONTAL,
+            halign = Gtk.Align.END,
+            valign = Gtk.Align.CENTER,
+            hexpand = True
+        )
+        self.box_2.append(self.box_2_btn)
+
+        # Düğmeler
+        self.btn_quit = Gtk.Button(
+            label = "Çık"
+        )
+        functions.clicked(self.btn_quit, self.on_cancel_clicked)
+        self.box_2_btn.append(self.btn_quit)
+
     def on_cancel_clicked(self, widget):
         self.close()
     def on_install_clicked(self, widget):
-        self.stk_main.set_visible_child(self.box_1)
+        self.stk_main.set_visible_child(self.box_2)
 
         def install_app(file):
             home_dir = os.getenv("HOME")
@@ -177,8 +230,13 @@ class InstallerWindow (Adw.Window):
                 "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
             )
             mv_appimg = subprocess.run(["mv", f"{file}", f"{bin_dir}"], capture_output=True).stdout.decode("utf-8")
-            os.makedirs("/tmp/appiload/appinstall")
-            os.chdir("/tmp/appiload/appinstall")
+            check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
+            if check_appiload_path == False:
+                os.makedirs("/tmp/appiload/appinstall")
+                os.chdir("/tmp/appiload/appinstall")
+            else:
+                self.stk_main.set_visible_child(self.box_2)
+            
             ext_appimg = subprocess.run([f"{bin_dir}/{file_name}", "--appimage-extract"], capture_output=True).stdout.decode("utf-8")
             print(ext_appimg)
 
