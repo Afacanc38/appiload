@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 import gi
+import pathlib
 gi.require_version ("Gtk", "4.0")
 gi.require_version ("Adw", "1")
 from gi.repository import Gtk, Adw, GLib
@@ -12,7 +13,6 @@ class functions():
     
     def clicked(widget, function):
         widget.connect("clicked", function)
-
 
 class InstallerWindow (Adw.Window):
     def __init__ (self, *args, **kwargs):
@@ -119,7 +119,7 @@ class InstallerWindow (Adw.Window):
             halign = Gtk.Align.START
         )
         self.lbl_installing.set_markup (
-            "<b>Kuruluyor</b>"
+            "<b>Kuruluyor...</b>"
         )
         self.box_1_progress.append (self.lbl_installing)
 
@@ -145,6 +145,35 @@ class InstallerWindow (Adw.Window):
         self.close()
     def on_install_clicked(self, widget):
         self.stk_main.set_visible_child(self.box_1)
+        home_dir = os.getenv("HOME")
+        def install_app(file):
+            self.lbl_installing.set_markup (
+                "<b>Kuruluyor:</b> Uygulama dizini kontrol ediliyor..."
+            )
+            self.prc_progress.set_fraction(0.2)
+            check_bin_path = pathlib.Path(f"{home_dir}/.local/bin").exists()
+            if check_bin_path == True:
+                pass
+            else:
+                os.makedirs(f"{home_dir}/.local/bin")
+            
+            check_desktop_path = pathlib.Path(f"{home_dir}/.local/share/applications").exists()
+            if check_desktop_path == True:
+                pass
+            else:
+                os.makedirs(f"{home_dir}/.local/share/applications")
+            self.prc_progress.set_fraction(0.4)
+            check_icon_path = pathlib.Path(f"{home_dir}/.local/share/icons/hicolor/128x128/apps").exists()
+            if check_icon_path == True:
+                pass
+            else:
+                os.makedirs(f"{home_dir}/.local/share/icons/hicolor/128x128/apps")
+            
+            self.lbl_installing.set_markup (
+                "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
+            )
+
+        install_app("")
 
 class InstallerApp (Adw.Application):
     def __init__ (self, **kwargs):
