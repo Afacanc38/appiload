@@ -6,7 +6,7 @@
    version="1.1"
    id="svg119"
    sodipodi:docname="icon-devel.svg"
-   inkscape:version="1.1.2 (1:1.1+202202050950+0a00cf5339)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -22,15 +22,15 @@
      inkscape:pagecheckerboard="1"
      showgrid="false"
      inkscape:snap-global="false"
-     inkscape:zoom="4.140625"
-     inkscape:cx="58.445283"
-     inkscape:cy="122.08302"
+     inkscape:zoom="8.28125"
+     inkscape:cx="77.645283"
+     inkscape:cy="33.690566"
      inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:window-height="699"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g115" />
+     inkscape:current-layer="svg119" />
   <defs
      id="defs81">
     <linearGradient
@@ -264,7 +264,8 @@
   <path
      d="m 81.601562 22.925781 c -0.167968 0.003907 -0.332031 0.070313 -0.453124 0.191407 c -0.253907 0.253906 -0.253907 0.664062 0 0.917968 l 1.703124 1.703125 l -1.703124 1.703125 c -0.253907 0.253906 -0.253907 0.664063 0 0.914063 c 0.253906 0.253906 0.664062 0.253906 0.917968 0 l 1.703125 -1.703125 l 1.699219 1.703125 c 0.253906 0.253906 0.664062 0.253906 0.917969 0 c 0.253906 -0.25 0.253906 -0.660157 0 -0.914063 l -1.703125 -1.703125 l 1.703125 -1.703125 c 0.253906 -0.253906 0.253906 -0.664062 0 -0.917968 c -0.121094 -0.121094 -0.289063 -0.191407 -0.460938 -0.191407 c -0.171875 0.003907 -0.335937 0.070313 -0.457031 0.191407 l -1.699219 1.703124 l -1.703125 -1.703124 c -0.125 -0.121094 -0.289062 -0.191407 -0.464844 -0.191407 z m 0 0"
      fill="#ffffff"
-     id="path99" />
+     id="path99"
+     style="fill:#5e5c64" />
   <path
      d="m 36.214844 34.382812 h 56.199218 v 0.535157 h -56.199218 z m 0 0"
      fill="#c0bfbc"
@@ -277,10 +278,6 @@
      d="m 26.316406 75.117188 v -49.648438 l -18.550781 10.707031 v 48.097657 z m 0 0"
      fill="#62a0ea"
      id="path105" />
-  <path
-     d="m 26.195312 25.4375 h 75.414063 v 0.652344 h -75.414063 z m 0 0"
-     fill="#e7d5c7"
-     id="path107" />
   <path
      d="m 26.390625 74.601562 h 75.742187 v 20.371094 h -75.742187 z m 0 0"
      fill="#62a0ea"
