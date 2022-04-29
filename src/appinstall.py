@@ -206,6 +206,10 @@ class InstallerWindow (Adw.Window):
             bin_dir = f"{home_dir}/.local/bin"
             file_name = os.path.basename(f"{file}")
             file_path = pathlib.Path(file).parent.resolve()
+            script_path = os.path.realpath(__file__)
+            script_dir = pathlib.Path(script_path).parent.resolve()
+            print(script_dir)
+
             check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
             if check_appiload_path == False:
                 os.makedirs("/tmp/appiload/appinstall")
