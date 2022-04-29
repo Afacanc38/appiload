@@ -199,8 +199,6 @@ class InstallerWindow (Adw.Window):
     def on_cancel_clicked(self, widget):
         self.close()
     def on_install_clicked(self, widget):
-        self.stk_main.set_visible_child(self.box_2)
-
         def install_app(file):
             home_dir = os.getenv("HOME")
             bin_dir = f"{home_dir}/.local/bin"
@@ -214,37 +212,37 @@ class InstallerWindow (Adw.Window):
             if check_appiload_path == False:
                 os.makedirs("/tmp/appiload/appinstall")
                 os.chdir("/tmp/appiload/appinstall")
+                self.lbl_installing.set_markup (
+                    "<b>Kuruluyor:</b> Uygulama dizini kontrol ediliyor..."
+                )
+                self.prc_progress.set_fraction(0.2)
+                check_bin_path = pathlib.Path(f"{bin_dir}").exists()
+                if check_bin_path == True:
+                    pass
+                else:
+                    os.makedirs(f"{bin_dir}")
+                
+                check_desktop_path = pathlib.Path(f"{home_dir}/.local/share/applications").exists()
+                if check_desktop_path == True:
+                    pass
+                else:
+                    os.makedirs(f"{home_dir}/.local/share/applications")
+                self.prc_progress.set_fraction(0.4)
+                check_icon_path = pathlib.Path(f"{home_dir}/.local/share/icons/hicolor/128x128/apps").exists()
+                if check_icon_path == True:
+                    pass
+                else:
+                    os.makedirs(f"{home_dir}/.local/share/icons/hicolor/128x128/apps")
+                
+                self.lbl_installing.set_markup (
+                    "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
+                )
+                mv_appimg = subprocess.run(["mv", f"{file}", f"{bin_dir}"], capture_output=True).stdout.decode("utf-8")
+                
+                ext_appimg = subprocess.run([f"{bin_dir}/{file_name}", "--appimage-extract"], capture_output=True).stdout.decode("utf-8")
+                print(ext_appimg)
             else:
                 self.stk_main.set_visible_child(self.box_2)
-            self.lbl_installing.set_markup (
-                "<b>Kuruluyor:</b> Uygulama dizini kontrol ediliyor..."
-            )
-            self.prc_progress.set_fraction(0.2)
-            check_bin_path = pathlib.Path(f"{bin_dir}").exists()
-            if check_bin_path == True:
-                pass
-            else:
-                os.makedirs(f"{bin_dir}")
-            
-            check_desktop_path = pathlib.Path(f"{home_dir}/.local/share/applications").exists()
-            if check_desktop_path == True:
-                pass
-            else:
-                os.makedirs(f"{home_dir}/.local/share/applications")
-            self.prc_progress.set_fraction(0.4)
-            check_icon_path = pathlib.Path(f"{home_dir}/.local/share/icons/hicolor/128x128/apps").exists()
-            if check_icon_path == True:
-                pass
-            else:
-                os.makedirs(f"{home_dir}/.local/share/icons/hicolor/128x128/apps")
-            
-            self.lbl_installing.set_markup (
-                "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
-            )
-            mv_appimg = subprocess.run(["mv", f"{file}", f"{bin_dir}"], capture_output=True).stdout.decode("utf-8")
-            
-            ext_appimg = subprocess.run([f"{bin_dir}/{file_name}", "--appimage-extract"], capture_output=True).stdout.decode("utf-8")
-            print(ext_appimg)
 
         install_app("/home/alperen/Projeler/hello-world-appimage-x86_64.AppImage")
 
