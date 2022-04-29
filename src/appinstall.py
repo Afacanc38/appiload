@@ -3,6 +3,7 @@ import subprocess
 import sys
 import gi
 import pathlib
+import inspect
 gi.require_version ("Gtk", "4.0")
 gi.require_version ("Adw", "1")
 from gi.repository import Gtk, Adw, GLib
@@ -206,7 +207,14 @@ class InstallerWindow (Adw.Window):
             file_path = pathlib.Path(file).parent.resolve()
             script_path = os.path.realpath(__file__)
             script_dir = pathlib.Path(script_path).parent.resolve()
-            print(script_dir)
+            print(f"""\033[1;96mbilgi\033[0;1m: AppImage adı:\033[0m {file_name}
+\033[1;96mbilgi\033[0;1m: AppImage yolu:\033[0m {file}
+\033[1;96mbilgi\033[0;1m: AppImage'in bulunduğu dizin:\033[0m {file_path}
+\033[1;96mbilgi\033[0;1m: Başlangıç dizini:\033[0m {home_dir}
+\033[1;96mbilgi\033[0;1m: Hedef dizin:\033[0m {bin_dir}
+\033[1;96mbilgi\033[0;1m: Appiload yolu:\033[0m {script_path}
+\033[1;96mbilgi\033[0;1m: Appiload'ın bulunduğu dizin:\033[0m {script_dir}
+            """)
 
             check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
             if check_appiload_path == False:
