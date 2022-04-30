@@ -1,1 +1,5 @@
 squashfs-root/
+test.py
+*/test.py
+*.AppImage
+.vscode/
