@@ -8,12 +8,12 @@ gi.require_version ("Gtk", "4.0")
 gi.require_version ("Adw", "1")
 from gi.repository import Gtk, Adw, GLib
 
-class functions():
-    def add_class(widget, style):
-        widget.get_style_context().add_class(style)
+class functions ():
+    def add_class (widget, style):
+        widget.get_style_context ().add_class (style)
     
-    def clicked(widget, function):
-        widget.connect("clicked", function)
+    def clicked (widget, function):
+        widget.connect ("clicked", function)
 
 class InstallerWindow (Adw.Window):
     def __init__ (self, *args, **kwargs):
@@ -23,7 +23,7 @@ class InstallerWindow (Adw.Window):
         GLib.set_prgname ("Appiload")
         self.set_default_size (1, 1)
         
-        self.set_modal(True)
+        self.set_modal (True)
 
         # Başlık çubuğu olmayan bir pencereyi sürüklenebilir yapar
         self.win_hdl = Gtk.WindowHandle (
@@ -38,13 +38,13 @@ class InstallerWindow (Adw.Window):
         self.win_hdl.set_child (self.stk_main)
 
         # Pencere kenarlarına yapışık kalmamasını sağlar
-        self.stk_main.set_margin_top(20)
-        self.stk_main.set_margin_bottom(20)
-        self.stk_main.set_margin_start(20)
-        self.stk_main.set_margin_end(20)
+        self.stk_main.set_margin_top (20)
+        self.stk_main.set_margin_bottom (20)
+        self.stk_main.set_margin_start (20)
+        self.stk_main.set_margin_end (20)
 
         # Soru kısmı
-        self.box_0 = Gtk.Box(
+        self.box_0 = Gtk.Box (
             spacing = 10,
             halign = Gtk.Align.FILL,
             orientation = Gtk.Orientation.HORIZONTAL
@@ -62,35 +62,43 @@ class InstallerWindow (Adw.Window):
             self.img_question
         )
 
-        # Soru
-        self.lbl_question = Gtk.Label(
+        #* Soru
+        self.lbl_question = Gtk.Label (
             label = "Bu uygulamayı kurmak istiyor musunuz?"
         )
         self.box_0.append (self.lbl_question)
 
         # Düğme kutusu
-        self.box_0_btn = Gtk.Box(
+        self.box_0_btn = Gtk.Box (
             spacing = 6,
             orientation = Gtk.Orientation.HORIZONTAL,
             halign = Gtk.Align.END,
             valign = Gtk.Align.CENTER,
             hexpand = True
         )
-        self.box_0.append(self.box_0_btn)
+        self.box_0.append (self.box_0_btn)
 
         # Düğmeler
-        self.btn_install = Gtk.Button(
+        self.btn_install = Gtk.Button (
             label = "Kur"
         )
-        functions.add_class(self.btn_install, "suggested-action")
-        functions.clicked(self.btn_install, self.on_install_clicked)
-        self.box_0_btn.append(self.btn_install)
+        functions.add_class (
+            self.btn_install, 
+            "suggested-action"
+        )
+        functions.clicked (
+            self.btn_install, 
+            self.on_install_clicked
+        )
+        self.box_0_btn.append (self.btn_install)
 
-        self.btn_cancel = Gtk.Button(
+        self.btn_cancel = Gtk.Button (
             label = "İptal"
         )
-        functions.clicked(self.btn_cancel, self.on_cancel_clicked)
-        self.box_0_btn.append(self.btn_cancel)
+        functions.clicked (self.btn_cancel, 
+            self.on_cancel_clicked
+        )
+        self.box_0_btn.append (self.btn_cancel)
 
         # Kurulum ilerlemesi
         self.box_1 = Gtk.Box(
@@ -111,7 +119,7 @@ class InstallerWindow (Adw.Window):
             self.img_installing
         )
 
-        # İlerleme
+        #* İlerleme
         self.box_1_progress = Gtk.Box (
             spacing = 6,
             hexpand = True,
@@ -143,14 +151,14 @@ class InstallerWindow (Adw.Window):
         )
         self.box_1.append (self.box_1_btn)
 
-        self.btn_1_cancel = Gtk.Button(
+        self.btn_1_cancel = Gtk.Button (
             label = "İptal"
         )
-        functions.clicked(self.btn_1_cancel, self.on_cancel_clicked)
+        functions.clicked (self.btn_1_cancel, self.on_cancel_clicked)
         self.box_1_btn.append (self.btn_1_cancel)
 
-        # Hata kısmı
-        self.box_2 = Gtk.Box(
+        #* Hata kısmı
+        self.box_2 = Gtk.Box (
             spacing = 10,
             halign = Gtk.Align.FILL,
             orientation = Gtk.Orientation.HORIZONTAL
@@ -177,7 +185,7 @@ class InstallerWindow (Adw.Window):
         self.lbl_error.set_markup (
             "<b>Hata:</b> Appiload arkada çalışıyor. Bunun yanlış olduğunu düşünüyorsanız <tt>/tmp/appiload</tt> klasörünü silebilirsiniz."
         )
-        self.lbl_error.set_wrap(True)
+        self.lbl_error.set_wrap (True)
         self.box_2.append (self.lbl_error)
 
         # Düğme kutusu
@@ -188,25 +196,29 @@ class InstallerWindow (Adw.Window):
             valign = Gtk.Align.CENTER,
             hexpand = True
         )
-        self.box_2.append(self.box_2_btn)
+        self.box_2.append (self.box_2_btn)
 
         # Düğmeler
-        self.btn_quit = Gtk.Button(
+        self.btn_quit = Gtk.Button (
             label = "Çık"
         )
-        functions.clicked(self.btn_quit, self.on_cancel_clicked)
-        self.box_2_btn.append(self.btn_quit)
+        functions.clicked (
+            self.btn_quit,
+            self.on_cancel_clicked
+        )
+        self.box_2_btn.append (self.btn_quit)
 
-    def on_cancel_clicked(self, widget):
-        self.close()
-    def on_install_clicked(self, widget):
-        def install_app(file):
-            home_dir = os.getenv("HOME")
-            bin_dir = f"{home_dir}/.local/bin"
-            file_name = os.path.basename(f"{file}")
-            file_path = pathlib.Path(file).parent.resolve()
-            script_path = os.path.realpath(__file__)
-            script_dir = pathlib.Path(script_path).parent.resolve()
+    def on_cancel_clicked (self, widget):
+        self.close () # Kapat
+    def on_install_clicked (self, widget):
+        def install_app (file):
+            home_dir = os.getenv ("HOME") # Ev dizini
+            bin_dir = f"{home_dir}/.local/bin" # Hedef dizin
+            file_name = os.path.basename (f"{file}") # AppImage dosyası adı
+            file_path = pathlib.Path(file).parent.resolve () # AppImage yolu
+            script_path = os.path.realpath (__file__) # Appiload yolu
+            script_dir = pathlib.Path(script_path).parent.resolve () # Appiload'ın bulunduğu klasör
+            script_tmp_dir = "/tmp/appiload/appinstall" # Geçici dizin (dosyalar burada ayıklanıyor)
             print(f"""\033[1;96mbilgi\033[0;1m: AppImage adı:\033[0m {file_name}
 \033[1;96mbilgi\033[0;1m: AppImage yolu:\033[0m {file}
 \033[1;96mbilgi\033[0;1m: AppImage'in bulunduğu dizin:\033[0m {file_path}
@@ -214,45 +226,70 @@ class InstallerWindow (Adw.Window):
 \033[1;96mbilgi\033[0;1m: Hedef dizin:\033[0m {bin_dir}
 \033[1;96mbilgi\033[0;1m: Appiload yolu:\033[0m {script_path}
 \033[1;96mbilgi\033[0;1m: Appiload'ın bulunduğu dizin:\033[0m {script_dir}
+\033[1;96mbilgi\033[0;1m: Appiload'ın geçici klasörü:\033[0m {script_tmp_dir}
             """)
 
-            check_appiload_path = pathlib.Path("/tmp/appiload/appinstall").exists()
+            check_appiload_path = pathlib.Path(script_tmp_dir).exists () #? Geçici dizin var mı?
             if check_appiload_path == False:
-                os.makedirs("/tmp/appiload/appinstall")
-                os.chdir("/tmp/appiload/appinstall")
+                os.makedirs (
+                    "/tmp/appiload/appinstall"
+                )
+                os.chdir (
+                    "/tmp/appiload/appinstall"
+                )
                 self.lbl_installing.set_markup (
                     "<b>Kuruluyor:</b> Uygulama dizini kontrol ediliyor..."
                 )
-                self.prc_progress.set_fraction(0.2)
-                check_bin_path = pathlib.Path(f"{bin_dir}").exists()
+                self.prc_progress.set_fraction (0.2)
+                check_bin_path = pathlib.Path(f"{bin_dir}").exists ()
                 if check_bin_path == True:
                     pass
                 else:
-                    os.makedirs(f"{bin_dir}")
+                    os.makedirs (f"{bin_dir}")
                 
-                check_desktop_path = pathlib.Path(f"{home_dir}/.local/share/applications").exists()
+                check_desktop_path = pathlib.Path(f"{home_dir}/.local/share/applications").exists ()
                 if check_desktop_path == True:
                     pass
                 else:
-                    os.makedirs(f"{home_dir}/.local/share/applications")
-                self.prc_progress.set_fraction(0.4)
-                check_icon_path = pathlib.Path(f"{home_dir}/.local/share/icons/hicolor/128x128/apps").exists()
+                    os.makedirs (f"{home_dir}/.local/share/applications")
+                self.prc_progress.set_fraction (0.4)
+                check_icon_path = pathlib.Path (f"{home_dir}/.local/share/icons/hicolor/128x128/apps").exists()
                 if check_icon_path == True:
                     pass
                 else:
-                    os.makedirs(f"{home_dir}/.local/share/icons/hicolor/128x128/apps")
+                    os.makedirs (f"{home_dir}/.local/share/icons/hicolor/128x128/apps")
                 
                 self.lbl_installing.set_markup (
                     "<b>Kuruluyor:</b> Dosyalar ayıklanıyor..."
                 )
-                mv_appimg = subprocess.run(["mv", f"{file}", f"{bin_dir}"], capture_output=True).stdout.decode("utf-8")
+                mv_appimg = subprocess.run (
+                    ["cp", f"{file}", f"{bin_dir}"],
+                    capture_output=True
+                ).stdout.decode ("utf-8")
                 
-                ext_appimg = subprocess.run([f"{bin_dir}/{file_name}", "--appimage-extract"], capture_output=True).stdout.decode("utf-8")
-                print(ext_appimg)
-            else:
-                self.stk_main.set_visible_child(self.box_2)
+                ext_appimg = subprocess.run (
+                    [f"{bin_dir}/{file_name}", "--appimage-extract"],
+                    capture_output = True
+                ).stdout.decode ("utf-8")
+                print (ext_appimg)
 
-        install_app("/home/alperen/Projeler/hello-world-appimage-x86_64.AppImage")
+                cp_appdir = subprocess.run (
+                    [f"mv", f"{bin_dir}/squashfs-root",f"{script_tmp_dir}/"],
+                    capture_output = True
+                ).stdout.decode ("utf-8")
+                
+                #* .desktop kısayolu oluşturma
+                appimg_desktop_file = open (f"{script_tmp_dir}/squashfs-root/")
+                """
+                TODO: .desktop bilgilerini okuyup uygulama menüsüne koyulabilir
+                TODO: hale getirmek.
+                """
+                
+            else:
+                # Hata ekranı gösterilir
+                self.stk_main.set_visible_child (self.box_2)
+
+        install_app ("/home/alperen/Projeler/hello-world-appimage-x86_64.AppImage")
 
 class InstallerApp (Adw.Application):
     def __init__ (self, **kwargs):
@@ -266,5 +303,7 @@ class InstallerApp (Adw.Application):
         self.win = InstallerWindow (application = app)
         self.win.present ()
 
-app = InstallerApp(application_id = "io.github.afacanc38.appiload")
-app.run(sys.argv)
+app = InstallerApp (
+    application_id = "io.github.afacanc38.appiload"
+)
+app.run (sys.argv)
