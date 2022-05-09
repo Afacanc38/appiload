@@ -5,6 +5,5 @@ Appiload
 <p align="center">Appimage dosyalarını kolayca yükleyin.</p>
 <br>
 
-## Yakında!
-Bu uygulama şu anda geliştirilme aşamasındadır ve hazır değildir. [Yol haritası.](https://github.com/Afacanc38/appiload/projects/1?fullscreen=true)
-![Ekran görüntüsü 2022-03-20 21-06-09](https://user-images.githubusercontent.com/66299502/159176243-931d7c9d-2132-4e9e-8fce-fcbc2bd36070.png)
+## Proje iptal edildi
+geliştirmek isteyen varsa çatallayabilir.
